@@ -16,3 +16,20 @@ $ npm install --global yarn
 ## Installation
 
 After ensuring that the prerequisites are installed, you can clone the repository and install the dependencies:
+
+```sh
+$ git clone https://github.com/Shaharyar-developer/project-eureka.git
+$ cd project-eureka
+$ yarn
+```
+
+## Running the Application in Development Mode
+
+To run the application in development mode, use either of the following commands:
+```sh
+$ yarn dev
+```
+or
+```sh
+$ npm run dev
+```
