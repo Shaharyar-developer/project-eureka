@@ -5,6 +5,7 @@ import { useState } from "react";
 import Modal from "./ui/modal";
 export default function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
+
   const options: option[] = [
     {
       name: "Home",
@@ -28,7 +29,6 @@ export default function TopBar() {
       },
     },
   ];
-
   return (
     <nav className="w-full border-b py-3 flex gap-4 items-center justify-center px-4">
       <InputSelect options={options} />
@@ -37,7 +37,7 @@ export default function TopBar() {
           setIsOpen(true);
         }}
       >
-        New Item
+        New Project
       </Button>
       <Modal
         isOpen={isOpen}
