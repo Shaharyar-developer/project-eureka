@@ -1,10 +1,12 @@
-import TopBar from "./components/topBar";
-import { useJsonStorage } from "./hooks/useJsonStorage";
 import { useEffect } from "react";
-import { Card } from "./components/ui/card";
+
+import TopBar from "./components/topBar";
+import { ProjectCard } from "./components/projectCard";
+import { useJsonStorage } from "./hooks/useJsonStorage";
+
+import type { Project } from "./types/types";
 export default function App() {
-  const obj = {
-    id: "1",
+  const obj: Project = {
     name: "Something",
     description: "None",
     startDate: new Date(),
@@ -12,11 +14,18 @@ export default function App() {
   const { getProjects, projects } = useJsonStorage(obj);
   useEffect(() => {
     getProjects();
-    console.log(projects);
   }, []);
+  useEffect(() => {
+    console.log(projects);
+  }, [projects]);
   return (
     <>
       <TopBar />
+      <div className="flex mt-12 gap-4 items-center justify-center container mx-auto">
+        {projects?.map((project, index) => (
+          <ProjectCard key={index} project={project} />
+        ))}
+      </div>
     </>
   );
 }

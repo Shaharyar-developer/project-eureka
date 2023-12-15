@@ -1,6 +1,6 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-import path from "node:path";
 import fs from "fs";
+import path from "node:path";
 
 import type { Project } from "../src/types/types";
 
@@ -49,12 +49,11 @@ const dataDir = app.getPath("documents");
 fs.mkdirSync(path.join(dataDir, "project_eureka"), { recursive: true });
 const dir = path.join(dataDir, "project_eureka");
 
-export interface Response {
+export type Response = {
   success: boolean;
-  data?: any;
-  comments?: string;
+  data?: Project[] | Project;
   error?: Error;
-}
+};
 
 function sendResponse(event: Electron.IpcMainEvent, response: Response) {
   event.sender.send("response", response);
@@ -66,10 +65,8 @@ ipcMain.on("getAllJsonFiles", (event) => {
     const jsonData = jsonFiles.map((file) => {
       const filePath = path.join(dir, file);
       const fileData = fs.readFileSync(filePath, "utf-8");
-      return {
-        fileName: file,
-        data: JSON.parse(fileData),
-      };
+      const data = JSON.parse(fileData) as Project;
+      return data;
     });
     sendResponse(event, { success: true, data: jsonData } as Response);
   } catch (error) {
@@ -84,5 +81,12 @@ ipcMain.on("deleteProject", (event, args) => {
     sendResponse(event, { success: false, error } as Response);
   }
 });
-
+ipcMain.on("addProject", (event, args: Project) => {
+  try {
+    fs.writeFileSync(path.join(dir, args.name), JSON.stringify(args));
+    sendResponse(event, { success: true } as Response);
+  } catch (error) {
+    sendResponse(event, { success: false, error } as Response);
+  }
+});
 app.whenReady().then(createWindow);

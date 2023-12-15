@@ -1,9 +1,11 @@
-import { Button } from "./ui/button";
-import InputSelect from "./ui/select";
-import type { option } from "./ui/select";
 import { useState } from "react";
+
+import NewProject from "./newProject";
+import { Button } from "./ui/button";
 import Modal from "./ui/modal";
-import NewProject from "./elements/newProject";
+import InputSelect from "./ui/select";
+
+import type { option } from "./ui/select";
 export default function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
 

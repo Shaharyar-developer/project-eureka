@@ -7,9 +7,16 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ children, className }, ref) => {
+  ({ children, className, onClick }, ref) => {
     return (
-      <div className={cn(className) + " p-1 rounded bg-"} ref={ref}>
+      <div
+        onClick={onClick}
+        className={
+          cn(className) +
+          " p-4 border border-muted-foreground/25 rounded-md bg-card"
+        }
+        ref={ref}
+      >
         {children as ReactNode}
       </div>
     );

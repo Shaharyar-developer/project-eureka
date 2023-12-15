@@ -1,8 +1,8 @@
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { DatePicker } from "../ui/datePicker";
-import { formatDate } from "../../libs/utils";
-import { useJsonStorage } from "../../hooks/useJsonStorage";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { DatePicker } from "./ui/datePicker";
+import { formatDate } from "../libs/utils";
+import { useJsonStorage } from "../hooks/useJsonStorage";
 export default function NewProject() {
   const { addProject } = useJsonStorage();
   return (
