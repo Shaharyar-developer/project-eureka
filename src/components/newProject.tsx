@@ -7,7 +7,7 @@ import { Input } from "./ui/input";
 export default function NewProject() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [startDate, setStartDate] = useState<string>(new Date().toString());
   const { addProject } = useJsonStorage();
 
   const handleSubmit = () => {
@@ -40,7 +40,7 @@ export default function NewProject() {
         <DatePicker
           defaultDate={new Date()}
           onDateChange={(e) => {
-            setStartDate(e);
+            setStartDate(e.toString());
           }}
         ></DatePicker>
         <Button onClick={handleSubmit} className="mx-1">

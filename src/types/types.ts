@@ -1,10 +1,10 @@
 export type Project = {
   name: string;
   description: string;
-  startDate: Date;
+  startDate: string;
   notes?: ProjectNote[];
 };
 type ProjectNote = {
   note: string;
-  date: Date;
+  date: string;
 };
