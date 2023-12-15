@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({
     <>
       <div
         onClick={onClose}
-        className={`h-[100vh] transition-all w-[100vw] duration-200 fixed ${
+        className={`h-[100vh] z-[9] transition-all w-[100vw] duration-200 fixed ${
           isOpen
             ? "backdrop-blur-sm bg-white/05 opacity-100 pointer-events-auto"
             : " opacity-0 pointer-events-none"

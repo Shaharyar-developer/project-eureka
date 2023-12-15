@@ -11,11 +11,16 @@ const useJsonStorage = (project?: Project) => {
         setProjects(response.data as Project[]);
         return projects;
       } else {
-        console.error(response.error);
+        console.error(response.error, event);
       }
     });
   };
-  const addProject = () => {};
+  const addProject = () => {
+    window.ipcRenderer.send("addProject", project);
+    window.ipcRenderer.on("response", (event, response: Response) => {
+      console.log(response, event);
+    });
+  };
   const deleteProject = () => {
     if (!project) {
       return;
