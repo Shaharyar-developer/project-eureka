@@ -6,6 +6,15 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
+/**
+ * A custom card component.
+ *
+ * @component
+ * @param {ReactNode} children - The content of the card.
+ * @param {string} className - Additional CSS class names for the card.
+ * @param {function} onClick - The click event handler for the card.
+ * @returns {JSX.Element} The rendered card component.
+ */
 const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ children, className, onClick }, ref) => {
     return (

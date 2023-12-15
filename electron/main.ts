@@ -1,3 +1,9 @@
+/**
+ * This file contains the main Electron application code.
+ * It creates and manages the Electron window, handles IPC communication,
+ * and performs file operations for the project.
+ */
+
 import { app, BrowserWindow, ipcMain } from "electron";
 import fs from "fs";
 import path from "node:path";
@@ -13,6 +19,9 @@ let win: BrowserWindow | null;
 
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
+/**
+ * Creates the Electron window and loads the application.
+ */
 function createWindow() {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
@@ -55,6 +64,11 @@ export type Response = {
   error?: Error;
 };
 
+/**
+ * Sends a response to the renderer process.
+ * @param event - The IPC event object.
+ * @param response - The response object to send.
+ */
 function sendResponse(event: Electron.IpcMainEvent, response: Response) {
   event.sender.send("response", response);
 }
@@ -62,6 +76,10 @@ function sendResponse(event: Electron.IpcMainEvent, response: Response) {
 ipcMain.on("getAllJsonFiles", (event) => {
   try {
     const jsonFiles = fs.readdirSync(dir);
+    /**
+     * Represents an array of JSON data obtained from reading and parsing multiple files.
+     * @type {Project[]}
+     */
     const jsonData = jsonFiles.map((file) => {
       const filePath = path.join(dir, file);
       const fileData = fs.readFileSync(filePath, "utf-8");
@@ -73,6 +91,7 @@ ipcMain.on("getAllJsonFiles", (event) => {
     sendResponse(event, { success: false, error } as Response);
   }
 });
+
 ipcMain.on("deleteProject", (event, args) => {
   try {
     fs.unlinkSync(path.join(dir, args));
@@ -81,6 +100,7 @@ ipcMain.on("deleteProject", (event, args) => {
     sendResponse(event, { success: false, error } as Response);
   }
 });
+
 ipcMain.on("addProject", (event, args: Project) => {
   try {
     fs.writeFileSync(path.join(dir, args.name), JSON.stringify(args));
@@ -89,4 +109,5 @@ ipcMain.on("addProject", (event, args: Project) => {
     sendResponse(event, { success: false, error } as Response);
   }
 });
+
 app.whenReady().then(createWindow);

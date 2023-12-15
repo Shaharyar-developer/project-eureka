@@ -2,7 +2,12 @@ import { useState } from "react";
 
 import type { Response } from "../../electron/main";
 import type { Project } from "../types/types";
-const useJsonStorage = (project?: Project) => {
+/**
+ * Custom hook for managing JSON storage of projects.
+ * @param project Optional project object.
+ * @returns An object containing functions for managing projects and the current list of projects.
+ */
+const useJsonStorage = () => {
   const [projects, setProjects] = useState<Project[]>();
   const getProjects = () => {
     window.ipcRenderer.send("getAllJsonFiles");
@@ -15,13 +20,13 @@ const useJsonStorage = (project?: Project) => {
       }
     });
   };
-  const addProject = () => {
+  const addProject = (project: Project) => {
     window.ipcRenderer.send("addProject", project);
     window.ipcRenderer.on("response", (event, response: Response) => {
       console.log(response, event);
     });
   };
-  const deleteProject = () => {
+  const deleteProject = (project: Project) => {
     if (!project) {
       return;
     }

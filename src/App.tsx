@@ -5,14 +5,8 @@ import { ProjectCard } from "./components/projectCard";
 import { useJsonStorage } from "./hooks/useJsonStorage";
 import { Toaster } from "sonner";
 
-import type { Project } from "./types/types";
 export default function App() {
-  const obj: Project = {
-    name: "Something",
-    description: "None",
-    startDate: new Date(),
-  };
-  const { getProjects, projects } = useJsonStorage(obj);
+  const { getProjects, projects } = useJsonStorage();
   useEffect(() => {
     getProjects();
   }, []);

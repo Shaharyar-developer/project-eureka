@@ -12,12 +12,10 @@ const InputSelect: React.FC<InputSelectProps> = ({ options }) => {
   const [inputValue, setInputValue] = useState("");
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showOptions, setShowOptions] = useState(false);
-
   /**
    * Handles the change event of the input element.
-   * Updates the input value and resets the selected option if the input value is empty.
-   *
-   * @param e - The change event object.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The change event object.
+   * @returns {void}
    */
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -46,7 +44,7 @@ const InputSelect: React.FC<InputSelectProps> = ({ options }) => {
         placeholder={selectedOption ? selectedOption : "Select an option..."}
       />
       <ul
-        className={`absolute bg-secondary/75 backdrop-blur-3xl transition-all w-full p-1 rounded-md mt-1 ${
+        className={`absolute bg-secondary/75 z-[10] backdrop-blur-3xl transition-all w-full p-1 rounded-md mt-1 ${
           showOptions ? "opacity-1" : " opacity-0"
         }`}
       >

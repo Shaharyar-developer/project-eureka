@@ -1,16 +1,22 @@
-import { Input } from "./ui/input";
+import { useState } from "react";
+import { useJsonStorage } from "../hooks/useJsonStorage";
+import type { Project } from "../types/types";
 import { Button } from "./ui/button";
 import { DatePicker } from "./ui/datePicker";
-import { useJsonStorage } from "../hooks/useJsonStorage";
-import { useState } from "react";
+import { Input } from "./ui/input";
 export default function NewProject() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState<Date>();
+  const [startDate, setStartDate] = useState<Date>(new Date());
   const { addProject } = useJsonStorage();
 
   const handleSubmit = () => {
-    return;
+    const project: Project = {
+      name,
+      description,
+      startDate,
+    };
+    addProject(project);
   };
 
   return (
