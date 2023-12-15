@@ -33,3 +33,5 @@ or
 ```sh
 $ npm run dev
 ```
+
+#### More Information in the /docs directory
