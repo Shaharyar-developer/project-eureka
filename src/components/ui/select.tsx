@@ -17,7 +17,7 @@ const InputSelect: React.FC<InputSelectProps> = ({ options }) => {
    * @param {React.ChangeEvent<HTMLInputElement>} e - The change event object.
    * @returns {void}
    */
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(e.target.value);
     if (inputValue == "") setSelectedOption(null);
   };

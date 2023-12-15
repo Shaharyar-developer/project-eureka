@@ -17,6 +17,7 @@ export default function NewProject() {
       startDate,
     };
     addProject(project);
+    window.location.reload();
   };
 
   return (
