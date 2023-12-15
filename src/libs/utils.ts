@@ -40,7 +40,7 @@ export function triggerToast(
     return toast[type === "default" ? "info" : type](message, {
       action: {
         label: actionLabel,
-        onClick: () => console.log("Undo"),
+        onClick: () => action(),
       },
     });
   }
