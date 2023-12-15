@@ -1,9 +1,10 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-
+import { format } from "date-fns";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-export function getAllProjects() {
-  return;
+
+export function formatDate(date: Date, Type = "PPP") {
+  return format(new Date(date), Type);
 }

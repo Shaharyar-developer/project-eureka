@@ -3,6 +3,7 @@ import InputSelect from "./ui/select";
 import type { option } from "./ui/select";
 import { useState } from "react";
 import Modal from "./ui/modal";
+import NewProject from "./elements/newProject";
 export default function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,12 +41,13 @@ export default function TopBar() {
         New Project
       </Button>
       <Modal
+        className={""}
         isOpen={isOpen}
         onClose={() => {
           setIsOpen(false);
         }}
       >
-        Content
+        <NewProject />
       </Modal>
     </nav>
   );

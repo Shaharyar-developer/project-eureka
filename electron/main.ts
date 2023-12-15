@@ -2,6 +2,8 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
 import fs from "fs";
 
+import type { Project } from "../src/types/types";
+
 process.env.DIST = path.join(__dirname, "../dist");
 process.env.VITE_PUBLIC = app.isPackaged
   ? process.env.DIST
@@ -47,23 +49,39 @@ const dataDir = app.getPath("documents");
 fs.mkdirSync(path.join(dataDir, "project_eureka"), { recursive: true });
 const dir = path.join(dataDir, "project_eureka");
 
-interface Response {
+export interface Response {
   success: boolean;
-  jsonFiles?: string[];
+  data?: any;
+  comments?: string;
+  error?: Error;
 }
 
 function sendResponse(event: Electron.IpcMainEvent, response: Response) {
   event.sender.send("response", response);
 }
 
-ipcMain.on("getAllJsonFiles", (event, args) => {
+ipcMain.on("getAllJsonFiles", (event) => {
   try {
     const jsonFiles = fs.readdirSync(dir);
-    sendResponse(event, { success: true, jsonFiles } as Response);
+    const jsonData = jsonFiles.map((file) => {
+      const filePath = path.join(dir, file);
+      const fileData = fs.readFileSync(filePath, "utf-8");
+      return {
+        fileName: file,
+        data: JSON.parse(fileData),
+      };
+    });
+    sendResponse(event, { success: true, data: jsonData } as Response);
   } catch (error) {
     sendResponse(event, { success: false, error } as Response);
-    const jsonFiles = fs.readdirSync(dir);
-    sendResponse(event, { success: true, jsonFiles });
+  }
+});
+ipcMain.on("deleteProject", (event, args) => {
+  try {
+    fs.unlinkSync(path.join(dir, args));
+    sendResponse(event, { success: true } as Response);
+  } catch (error) {
+    sendResponse(event, { success: false, error } as Response);
   }
 });
 

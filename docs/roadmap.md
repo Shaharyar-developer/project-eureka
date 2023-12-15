@@ -4,12 +4,16 @@
 This is a personal project I started to be the backbone of my other projects.
 
 ## Current Status
-Trying out different ways to store data regarding projects. i.e: 1 JSON file per project in a projects directory.
+Implementing Types for json data (will probably redo type system for response from electron IPC).
 
 ## Milestones
 ### Milestone 1
 - [Initial Project Setup Complete]
 - [Design Scheme Set]
+
+### Milestone 2
+- [successfully read project directory]
+
 
 ## Future Plans
 [Implement AI writing and planning features.]
